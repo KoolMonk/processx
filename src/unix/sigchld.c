@@ -1,9 +1,9 @@
 
-#include "../processx.h"
+#include "../processx3.h"
 
-extern processx__child_list_t *child_list;
+extern processx3__child_list_t *child_list;
 
-void processx__sigchld_callback(int sig, siginfo_t *info, void *ctx) {
+void processx3__sigchld_callback(int sig, siginfo_t *info, void *ctx) {
   if (sig != SIGCHLD) return;
 
   /* While we get a pid in info, this is basically useless, as
@@ -11,11 +11,11 @@ void processx__sigchld_callback(int sig, siginfo_t *info, void *ctx) {
      for multiple children exiting around the same time. So we need to
      iterate over all children to see which one has exited. */
 
-  processx__child_list_t *ptr = child_list->next;
-  processx__child_list_t *prev = child_list;
+  processx3__child_list_t *ptr = child_list->next;
+  processx3__child_list_t *prev = child_list;
 
   while (ptr) {
-    processx__child_list_t *next = ptr->next;
+    processx3__child_list_t *next = ptr->next;
     int wp, wstat;
 
     /* Check if this child has exited */
@@ -41,17 +41,17 @@ void processx__sigchld_callback(int sig, siginfo_t *info, void *ctx) {
 	 might even trigger the SIGCHLD handler...
       */
 
-      processx_handle_t *handle = R_ExternalPtrAddr(ptr->status);
+      processx3_handle_t *handle = R_ExternalPtrAddr(ptr->status);
 
       /* If handle is NULL, then the exit status was collected already */
-      if (handle) processx__collect_exit_status(ptr->status, wstat);
+      if (handle) processx3__collect_exit_status(ptr->status, wstat);
 
       /* Defer freeing the memory, because malloc/free are typically not
 	 reentrant, and if we free in the SIGCHLD handler, that can cause
 	 crashes. The test case in test-run.R (see comments there)
 	 typically brings this out. */
       memset(ptr, 0, sizeof(*ptr));
-      processx__freelist_add(ptr);
+      processx3__freelist_add(ptr);
 
       /* If there is an active wait() with a timeout, then stop it */
       if (handle && handle->waitpipe[1] >= 0) {
@@ -69,35 +69,35 @@ void processx__sigchld_callback(int sig, siginfo_t *info, void *ctx) {
 
 /* TODO: use oldact */
 
-void processx__setup_sigchld() {
+void processx3__setup_sigchld() {
   struct sigaction action;
   memset(&action, 0, sizeof(action));
-  action.sa_sigaction = processx__sigchld_callback;
+  action.sa_sigaction = processx3__sigchld_callback;
   action.sa_flags = SA_SIGINFO | SA_RESTART | SA_NOCLDSTOP;
   sigaction(SIGCHLD, &action, /* oldact= */ NULL);
 }
 
-void processx__remove_sigchld() {
+void processx3__remove_sigchld() {
   struct sigaction action;
   memset(&action, 0, sizeof(action));
   action.sa_handler = SIG_DFL;
   sigaction(SIGCHLD, &action, /* oldact= */ NULL);
 }
 
-void processx__block_sigchld() {
+void processx3__block_sigchld() {
   sigset_t blockMask;
   sigemptyset(&blockMask);
   sigaddset(&blockMask, SIGCHLD);
   if (sigprocmask(SIG_BLOCK, &blockMask, NULL) == -1) {
-    error("processx error setting up signal handlers");
+    error("processx3 error setting up signal handlers");
   }
 }
 
-void processx__unblock_sigchld() {
+void processx3__unblock_sigchld() {
   sigset_t unblockMask;
   sigemptyset(&unblockMask);
   sigaddset(&unblockMask, SIGCHLD);
   if (sigprocmask(SIG_UNBLOCK, &unblockMask, NULL) == -1) {
-    error("processx error setting up signal handlers");
+    error("processx3 error setting up signal handlers");
   }
 }

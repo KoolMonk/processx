@@ -1,8 +1,8 @@
 
-OBJECTS = init.o poll.o processx-connection.o            \
-          processx-vector.o                              \
+OBJECTS = init.o poll.o processx3-connection.o            \
+          processx3-vector.o                              \
 	  unix/childlist.o unix/connection.o             \
-          unix/processx.o unix/sigchld.o unix/utils.o    \
+          unix/processx3.o unix/sigchld.o unix/utils.o    \
 	  unix/named_pipe.o   		 		 \
 	  test-connections.o test-runner.o
 

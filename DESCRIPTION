@@ -1,4 +1,4 @@
-Package: processx
+Package: processx3
 Title: Execute and Control System Processes
 Version: 3.0.3
 Author: Gábor Csárdi, Winston Chang
@@ -8,12 +8,12 @@ Description: Tools to run system processes in the background.
     process to finish; get the exit status of finished processes; kill
     background processes and their children; restart processes. It can read
     the standard output and error of the processes, using non-blocking
-    connections. 'processx' can poll a process for standard output or
+    connections. 'processx3' can poll a process for standard output or
     error, with a timeout. It can also poll several processes at once.
 License: MIT + file LICENSE
 LazyData: true
-URL: https://github.com/r-lib/processx#readme
-BugReports: https://github.com/r-lib/processx/issues
+URL: https://github.com/r-lib/processx3#readme
+BugReports: https://github.com/r-lib/processx3/issues
 RoxygenNote: 6.0.1.9000
 Roxygen: list(markdown = TRUE)
 Imports:

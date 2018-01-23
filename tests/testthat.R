@@ -1,5 +1,5 @@
 library(testthat)
-library(processx)
+library(processx3)
 
 Sys.setenv("R_TESTS" = "")
-test_check("processx", reporter = "summary")
+test_check("processx3", reporter = "summary")

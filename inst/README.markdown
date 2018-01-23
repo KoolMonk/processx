@@ -1,20 +1,20 @@
 
 
 
-# processx
+# processx3
 
 > Execute and Control System Processes
 
-[![Linux Build Status](https://travis-ci.org/r-lib/processx.svg?branch=master)](https://travis-ci.org/r-lib/processx)
-[![Windows Build status](https://ci.appveyor.com/api/projects/status/15sfg3l9mm4aseyf/branch/master?svg=true)](https://ci.appveyor.com/project/gaborcsardi/processx)
-[![](https://www.r-pkg.org/badges/version/processx)](https://www.r-pkg.org/pkg/processx)
-[![CRAN RStudio mirror downloads](https://cranlogs.r-pkg.org/badges/processx)](https://www.r-pkg.org/pkg/processx)
-[![Coverage Status](https://img.shields.io/codecov/c/github/r-lib/processx/master.svg)](https://codecov.io/github/r-lib/processx?branch=master)
+[![Linux Build Status](https://travis-ci.org/r-lib/processx3.svg?branch=master)](https://travis-ci.org/r-lib/processx3)
+[![Windows Build status](https://ci.appveyor.com/api/projects/status/15sfg3l9mm4aseyf/branch/master?svg=true)](https://ci.appveyor.com/project/gaborcsardi/processx3)
+[![](https://www.r-pkg.org/badges/version/processx3)](https://www.r-pkg.org/pkg/processx3)
+[![CRAN RStudio mirror downloads](https://cranlogs.r-pkg.org/badges/processx3)](https://www.r-pkg.org/pkg/processx3)
+[![Coverage Status](https://img.shields.io/codecov/c/github/r-lib/processx3/master.svg)](https://codecov.io/github/r-lib/processx3?branch=master)
 
 Tools to run system processes in the background,
 read their standard output and error, kill and restart them.
 
-`processx` can poll the standard output and error of a single process,
+`processx3` can poll the standard output and error of a single process,
 or multiple processes, using the operating system's polling and waiting
 facilities, with a timeout.
 
@@ -63,14 +63,14 @@ facilities, with a timeout.
 
 
 ```r
-source("https://install-github.me/r-lib/processx")
+source("https://install-github.me/r-lib/processx3")
 ```
 
 ## Usage
 
 
 ```r
-library(processx)
+library(processx3)
 ```
 
 > Note: the following external commands are usually present in macOS and
@@ -82,14 +82,14 @@ library(processx)
 
 ```r
 px <- paste0(
-  system.file(package = "processx", "bin", "px"),
-  system.file(package = "processx", "bin", .Platform$r_arch, "px.exe")
+  system.file(package = "processx3", "bin", "px"),
+  system.file(package = "processx3", "bin", .Platform$r_arch, "px.exe")
 )
 px
 ```
 
 ```
-#> [1] "/Users/gaborcsardi/r_pkgs/processx/bin/px"
+#> [1] "/Users/gaborcsardi/r_pkgs/processx3/bin/px"
 ```
 
 ### Runing an external process
@@ -134,7 +134,7 @@ result <- run(px, "--help", echo = TRUE)
 #>             return <exitcode> -- return with exitcode
 ```
 
-> Note: From version 3.0.1, `processx` does not let you specify a full
+> Note: From version 3.0.1, `processx3` does not let you specify a full
 > shell command line, as this involves starting a grandchild process from
 > the child process, and it is difficult to clean up the grandchild
 > process when the child process is killed. The user can still start a
@@ -401,8 +401,8 @@ as well. See the `cleanup` option if you want to avoid this behavior.
 
 By default the standard output and error of the processes are ignored.
 You can set the `stdout` and `stderr` constructor arguments to a file name,
-and then they are redirected there, or to `"|"`, and then `processx` creates
-connections to them. (Note that starting from `processx` 3.0.0 these
+and then they are redirected there, or to `"|"`, and then `processx3` creates
+connections to them. (Note that starting from `processx3` 3.0.0 these
 connections are not regular R connections, because the public R connection
 API was retroactively removed from R.)
 
@@ -509,7 +509,7 @@ p$read_output_lines()
 #### Polling multiple processes
 
 If you need to manage multiple background processes, and need to wait
-for output from all of them, `processx` defines a `poll()` function that
+for output from all of them, `processx3` defines a `poll()` function that
 does just that. It is similar to the `poll_io()` method, but it takes
 multiple process objects, and returns as soon as one of them have data
 on standard output or error, or a timeout expires. Here is an example:
@@ -656,7 +656,7 @@ p$get_exit_status()
 
 #### Errors
 
-Errors are typically signalled via non-zero exits statuses. The `processx`
+Errors are typically signalled via non-zero exits statuses. The `processx3`
 constructor fails if the external program cannot be started,
 but it does not deal with errors that happen after the
 program has successfully started running.
@@ -667,7 +667,7 @@ p <- process$new("nonexistant-command-for-sure")
 ```
 
 ```
-#> Error in process_initialize(self, private, command, args : processx error
+#> Error in process_initialize(self, private, command, args : processx3 error
 ```
 
 

@@ -1,6 +1,6 @@
 
-#ifndef PROCESSX_H
-#define PROCESSX_H
+#ifndef PROCESSX3_H
+#define PROCESSX3_H
 
 #ifdef __cplusplus
 extern "C" {
@@ -21,41 +21,41 @@ extern "C" {
 #endif
 
 #include <Rinternals.h>
-#include "processx-connection.h"
+#include "processx3-connection.h"
 
 #ifdef _WIN32
-#include "win/processx-win.h"
+#include "win/processx3-win.h"
 #else
-#include "unix/processx-unix.h"
+#include "unix/processx3-unix.h"
 #endif
 
 /* API from R */
 
-SEXP processx_exec(SEXP command, SEXP args, SEXP std_out, SEXP std_err,
+SEXP processx3_exec(SEXP command, SEXP args, SEXP std_out, SEXP std_err,
 		   SEXP windows_verbatim_args,
 		   SEXP windows_hide_window, SEXP private_, SEXP cleanup,
 		   SEXP encoding);
-SEXP processx_wait(SEXP status, SEXP timeout);
-SEXP processx_is_alive(SEXP status);
-SEXP processx_get_exit_status(SEXP status);
-SEXP processx_signal(SEXP status, SEXP signal);
-SEXP processx_kill(SEXP status, SEXP grace);
-SEXP processx_get_pid(SEXP status);
+SEXP processx3_wait(SEXP status, SEXP timeout);
+SEXP processx3_is_alive(SEXP status);
+SEXP processx3_get_exit_status(SEXP status);
+SEXP processx3_signal(SEXP status, SEXP signal);
+SEXP processx3_kill(SEXP status, SEXP grace);
+SEXP processx3_get_pid(SEXP status);
 
-SEXP processx_poll(SEXP statuses, SEXP ms);
+SEXP processx3_poll(SEXP statuses, SEXP ms);
 
-SEXP processx__process_exists(SEXP pid);
-SEXP processx__disconnect_process_handle(SEXP status);
+SEXP processx3__process_exists(SEXP pid);
+SEXP processx3__disconnect_process_handle(SEXP status);
 
-SEXP processx_is_named_pipe_open(SEXP pipe_ext);
-SEXP processx_close_named_pipe(SEXP pipe_ext);
-SEXP processx_create_named_pipe(SEXP name, SEXP mode);
-SEXP processx_write_named_pipe(SEXP pipe_ext, SEXP text);
+SEXP processx3_is_named_pipe_open(SEXP pipe_ext);
+SEXP processx3_close_named_pipe(SEXP pipe_ext);
+SEXP processx3_create_named_pipe(SEXP name, SEXP mode);
+SEXP processx3_write_named_pipe(SEXP pipe_ext, SEXP text);
 
 /* Common declarations */
 
 /* Interruption interval in ms */
-#define PROCESSX_INTERRUPT_INTERVAL 200
+#define PROCESSX3_INTERRUPT_INTERVAL 200
 
 /* Various OSes and OS versions return various poll codes when the
    child's end of the pipe is closed, so we cannot provide a more
@@ -78,7 +78,7 @@ SEXP processx_write_named_pipe(SEXP pipe_ext, SEXP text);
 typedef struct {
   int windows_verbatim_args;
   int windows_hide;
-} processx_options_t;
+} processx3_options_t;
 
 #ifdef __cplusplus
 }

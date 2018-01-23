@@ -9,13 +9,13 @@
   any more, because process cleanup is error prone with an intermediate
   shell. (#88)
 
-* `processx` process objects no longer use R connection objects,
+* `processx3` process objects no longer use R connection objects,
   because the R connection API was retroactive made private by R-core
-  `processx` uses its own connection class now to manage standard output
+  `processx3` uses its own connection class now to manage standard output
   and error of the process.
 
 * The encoding of the standard output and error can be specified now,
-  and `processx` re-encodes `stdout` and `stderr` in UTF-8.
+  and `processx3` re-encodes `stdout` and `stderr` in UTF-8.
 
 * Cloning of process objects is disables now, as it is likely that it
   causes problems (@wch).
